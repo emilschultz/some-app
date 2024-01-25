@@ -33,7 +33,7 @@ export default function CreatePost({ setPosts }: any) {
       const response = await fetch('/api/posts', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application.json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(post),
       });
@@ -42,7 +42,7 @@ export default function CreatePost({ setPosts }: any) {
 
       setPosts((posts: any) => [
         {
-          _id: response.insertedId,
+          _id: responseJson.insertedId,
           ...post,
         },
         ...posts,
@@ -63,6 +63,8 @@ export default function CreatePost({ setPosts }: any) {
       <Image
         src={user.picture}
         alt={user.name}
+        width={50}
+        height={50}
         style={{ borderRadius: '50%', width: '50px', height: '50px' }}
       />
       <form onSubmit={onSubmitPost}>
