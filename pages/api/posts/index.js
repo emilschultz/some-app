@@ -30,6 +30,19 @@ export default async function handler(req, res) {
       default:
         res.status(405).end();
         break;
+
+      case 'POST':
+        const posts = req.body;
+        const insertData = await fetch(`${baseUrl}/insertOne`, {
+          ...fetchOptions,
+          body: JSON.stringify({
+            ...fetchBody,
+            document: posts,
+          }),
+        });
+        const insertDataJson = await insertData.json();
+        res.status(200).json(insertDataJson);
+        break;
     }
   } catch (error) {
     console.error(error);
