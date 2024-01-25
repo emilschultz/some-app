@@ -1,5 +1,3 @@
-// The method should be set to POST and the headers should include a Content-Type, Access-Control-Request-Headers, and api-key.
-
 export default async function handler(req, res) {
   const fetchOptions = {
     method: 'POST',
@@ -19,9 +17,15 @@ export default async function handler(req, res) {
   try {
     switch (req.method) {
       case 'GET':
-        const readData = await fetch('<url>', '<options>');
+        const readData = await fetch(`${baseUrl}/find`, {
+          ...fetchOptions,
+          body: JSON.stringify({
+            ...fetchBody,
+            sort: { postedAt: -1 },
+          }),
+        });
         const readDataJson = await readData.json();
-        res.status().json();
+        res.status(200).json(readDataJson.documents);
         break;
       default:
         res.status(405).end();
