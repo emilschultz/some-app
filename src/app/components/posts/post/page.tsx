@@ -107,6 +107,26 @@ export default function Post({ post, setPosts }: any) {
     }
   };
 
+  const deletePost = async () => {
+    try {
+      const response = await fetch('/api/posts/', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id,
+        }),
+      });
+
+      const responseJson = await response.json();
+      setDeleted(true);
+      alert('Post deleted');
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
+  };
 
   return (
     <>
